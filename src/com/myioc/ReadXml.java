@@ -54,7 +54,8 @@ public class ReadXml {
 			Map.Entry entry = (Map.Entry) iter.next();
 			Object key = entry.getKey();
 			Object val = entry.getValue();
-			System.out.print("key:"+key+"value:"+val);
+			map.put(key, val);
+			System.out.print("key:"+key+"value111:"+val);
 		}
 	}
 }
