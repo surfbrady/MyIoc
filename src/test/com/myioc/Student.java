@@ -1,4 +1,4 @@
-package com.myioc;
+package test.com.myioc;
 
 public class Student {
 	private String name;

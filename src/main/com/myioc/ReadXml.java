@@ -1,4 +1,4 @@
-package com.myioc;
+package main.com.myioc;
 
 import java.io.File;
 import java.util.HashMap;
@@ -46,16 +46,5 @@ public class ReadXml {
 	public Object getBeans(String key){
 		return beanIoc.get(key);
 	}
-	
-	public static void main(String[] args){
-		Map map = ReadXml.getnstance();
-		Iterator iter = map.entrySet().iterator();
-		while (iter.hasNext()) {
-			Map.Entry entry = (Map.Entry) iter.next();
-			Object key = entry.getKey();
-			Object val = entry.getValue();
-			map.put(key, val);
-			System.out.print("key:"+key+"value111:"+val);
-		}
-	}
+
 }
