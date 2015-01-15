@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-　　<bean>
+　　<bean scope="singleton">
 　　    <id>Student</id>
 　　    <class>com.myioc.Student</class>
 　　</bean>

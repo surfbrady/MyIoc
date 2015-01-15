@@ -8,6 +8,7 @@ import main.com.myioc.ReadXml;
 public class TestReadXml {
 	
 	public static void main(String[] args){
+		System.out.println("是的");
 		Map map = ReadXml.getnstance();
 		Iterator iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
