@@ -2,6 +2,6 @@
 <beans>
 　　<bean scope="singleton">
 　　    <id>Student</id>
-　　    <class>com.myioc.Student</class>
+　　    <class>test.com.myioc.Student</class>
 　　</bean>
 </beans>
