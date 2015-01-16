@@ -3,7 +3,7 @@ package test.com.myioc;
 import java.util.Iterator;
 import java.util.Map;
 
-import main.com.myioc.BeanFactory;
+import main.com.myioc.beans.BeanFactory;
 
 public class TestBeanFactory {
 	
@@ -11,6 +11,7 @@ public class TestBeanFactory {
 		System.out.println("是的");
 		BeanFactory beanFactory = new BeanFactory("MyIoc.xml");
 		Object o = beanFactory.getBean("Student");
-		System.out.print(o);
+		System.out.println(o);
+		o = beanFactory.getBean("Student");
 	}
 }

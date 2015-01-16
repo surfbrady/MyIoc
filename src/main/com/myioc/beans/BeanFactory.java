@@ -1,4 +1,4 @@
-package main.com.myioc;
+package main.com.myioc.beans;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,12 +14,12 @@ import org.dom4j.io.*;
  *  
  */
 public class BeanFactory {
-	private static Map<String,Object> beanSingletonMap = null;
+	private static Map<String,Object> beanSingletonMap = null; //save the singleton object to beanSingletonMap
 	
-	private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
+	private Map<String, DefaultBeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, DefaultBeanDefinition>();
 	
 	public BeanFactory(String strClassPath){
-		beanSingletonMap = new HashMap();
+		beanSingletonMap = new ConcurrentHashMap();
 		long lasting = System.currentTimeMillis();
 		try {
 			File f = new File(strClassPath);
@@ -31,9 +31,11 @@ public class BeanFactory {
 				foo = (Element) i.next();
 				String beanName = foo.elementText("id");
 				String beanClass = foo.elementText("class");
-				BeanDefinition beanDefinition = new BeanDefinition();
+				String scope = foo.attributeValue("scope");
+				DefaultBeanDefinition beanDefinition = new DefaultBeanDefinition();
 				beanDefinition.setBeanClass(beanClass);
 				beanDefinition.setBeanName(beanName);
+				beanDefinition.setScope(scope);
 				this.beanDefinitionMap.put(beanName, beanDefinition);
 			}
 		} catch (Exception e){
@@ -51,11 +53,15 @@ public class BeanFactory {
 			// loop beanDefinitionMap
 			Iterator i = this.beanDefinitionMap.entrySet().iterator();
 			while(i.hasNext()){
-				Map.Entry<String, BeanDefinition> pairs = (Map.Entry<String, BeanDefinition>)i.next();
+				Map.Entry<String, DefaultBeanDefinition> pairs = (Map.Entry<String, DefaultBeanDefinition>)i.next();
 				String str = pairs.getKey();
 				if(str.equals(key)){
 					try {
 						obj = Class.forName(pairs.getValue().getBeanClass()).newInstance();
+						if(pairs.getValue().getScope()!=null && pairs.getValue().getScope().equals("singleton")){
+							// save the singleton object to beanSingletonMap
+							beanSingletonMap.put(key, obj);
+						}
 					} catch (InstantiationException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -68,6 +74,8 @@ public class BeanFactory {
 					}
 				}
 			}
+		}else{
+			System.out.println("yes the container has the element");
 		}
 		return obj;
 	}
