@@ -11,6 +11,7 @@ public class testmap {
 		m.put("m", 1);
 		m.put("n", 2);
 		
+		// test
 		//遍历map集合
 		System.out.println("通过entryset遍历。。。");
 		Set<Map.Entry<String, Integer>> s = m.entrySet();
